@@ -1,7 +1,7 @@
 //author: drew tedesco
 //resources: done in assistance with claude sonnet 4.6
 
-import {db} from "./firebase.js";
+import {db} from "firebase/app";
 import {doc, setDoc, getDoc, collection, addDoc, onSnapshot, serverTimestamp} from "firebase/firestore";
 
 ///---code/session management--
@@ -10,7 +10,7 @@ import {doc, setDoc, getDoc, collection, addDoc, onSnapshot, serverTimestamp} fr
 function generateCode(){
     let code = "";
     for(let i = 0; i < 6; i++){
-        code += letter.charCodeAt(Math.floor(Math.random() * (90 - 65 + 1)) + 65);
+        code += String.fromCharCode(Math.floor(Math.random() * (90 - 65 + 1)) + 65);
     }
     return code;
 }
@@ -23,9 +23,10 @@ export async function createSession(){
     while(available === false){
         code = generateCode();
         const snapshot = await getDoc(doc(db, "sessions", code));
-        if(!snapshot.exists() || snapshot.data().active === true){available = true;}
-
-        await setDoc(doc(db, "sessions", code), {createdAt: serverTimestamp(), active: true, closedAt: null});
+        if(!snapshot.exists() || snapshot.data().active === false){
+            available = true;
+            await setDoc(doc(db, "sessions", code), {createdAt: serverTimestamp(), active: true, closedAt: null});
+        }
     }
     return code;
 }
