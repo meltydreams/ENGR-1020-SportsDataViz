@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 40px;
+}
+
+button {
+    padding: 15px 20px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Make/Miss colors */
+button[onclick*="make"] {
+    background-color: green;
+    color: white;
+}
+
+button[onclick*="miss"] {
+    background-color: red;
+    color: white;
+}
+
+/* Court layout */
+.court {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Zone buttons */
+.court button {
+    background-color: lightgray;
+}

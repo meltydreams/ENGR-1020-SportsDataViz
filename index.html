@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Join Session</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<h1>Join Session</h1>
+
+<input type="text" id="code" placeholder="Enter session code">
+<br><br>
+<button onclick="joinSession()">Join</button>
+
+<script>
+    function joinSession() {
+        const code = document.getElementById("code").value;
+        window.location.href = "student.html";
+    }
+</script>
+
+</body>
+</html>
