@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Session</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<h1>Join Session</h1>
+
+<label for="code">Session Code</label>
+<input type="text" id="code" placeholder="Enter session code">
+<br><br>
+<button onclick="joinSession()">Join</button>
+
+<script type="module">
+  import { sessionExists } from "./js/api.js";
+
+  async function joinSession() {
+    const code = document.getElementById("code").value.trim().toUpperCase();
+    if (!code) {
+      alert("Please enter a session code.");
+      return;
+    }
+    const valid = await sessionExists(code);
+    if (!valid) {
+      alert("Session not found or already closed.");
+      return;
+    }
+    window.location.href = "html/student.html?session=" + code;
+  }
+
+  window.joinSession = joinSession;
+</script>
+
+</body>
+</html>

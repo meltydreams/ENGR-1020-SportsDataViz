@@ -1,12 +1,9 @@
 {
-  "name": "sports-data-viz",
+  "name": "sportsdataviz",
   "version": "1.0.0",
   "description": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "private": true,
   "dependencies": {
-    "firebase": "^12.10.0"
+    "firebase": "^12.11.0"
   }
 }
