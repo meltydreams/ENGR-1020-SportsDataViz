@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 40px;
+}
+
+button {
+    padding: 15px 20px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Make/Miss colors */
+button.make {
+    background-color: green;
+    color: white;
+}
+
+button.miss {
+    background-color: red;
+    color: white;
+}
+
+/* Court layout */
+.court {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Zone buttons */
+.court button {
+    background-color: lightgray;
+}
+
+/* Zone divs on teacher page */
+.zone {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgray;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Session code display */
+#sessionCode {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 4px;
+}

@@ -1,7 +1,7 @@
-//author: drew tedesco
-//resources: done in assistance with claude sonnet 4.6
+//author: Drew Tedesco
+//resources: done in assistance with claude sonnet 4.6 (for firebase workings)
 
-import {db} from "firebase/app";
+import {db} from "./firebase";
 import {doc, setDoc, getDoc, collection, addDoc, onSnapshot, serverTimestamp} from "firebase/firestore";
 
 ///---code/session management--
