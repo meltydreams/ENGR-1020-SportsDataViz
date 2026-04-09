@@ -1,7 +1,8 @@
 //original author: Cihangir Piskin
 //reviewed & overhauled by Drew Tedesco
 
-import {createSession, terminateSession, listenForShots} from "./api";
+// Add the .js extension so the browser can find the module
+import {createSession, terminateSession, listenForShots} from "./api.js";
 
 //variables to track
 let sessionCode = null;
@@ -11,6 +12,7 @@ let unsubscribe = null;
 async function startSession(){
     sessionCode = await createSession();
     document.getElementById("sessionCode").innerHTML = "Session code: " + sessionCode;
+    // Note: ensure updateHeatmap is defined before being passed
     unsubscribe = listenForShots(sessionCode, updateHeatmap);
 }
 
@@ -18,6 +20,7 @@ async function startSession(){
 async function stopSession(){
     if(!sessionCode){
         alert("No such session");
+        return; // Added return to prevent trying to terminate a null session
     }
     if(unsubscribe) unsubscribe();
     await terminateSession(sessionCode);

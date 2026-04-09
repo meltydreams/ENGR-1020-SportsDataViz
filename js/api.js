@@ -32,6 +32,7 @@ export async function createSession(){
 }
 
 //checks if session code already exists & is active (why the hell does js use 3 equal signs?)
+// Note: === checks both value and type, so "5" == 5 is true, but "5" === 5 is false. It's safer!
 export async function sessionExists(code){
     const snapshot = await getDoc(doc(db, "sessions", code));
     if(!snapshot.exists()) return false;
@@ -60,4 +61,3 @@ export function listenForShots(sessionCode, callback){
         callback(shots);
     })
 }
-
