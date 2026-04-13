@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Teacher Dashboard</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body>
+<body class="teacher-page">
 
-<h1>Teacher Dashboard</h1>
+    <div class="header-section">
+        <h1>Teacher Dashboard</h1>
+        <button id="startSessionBtn" onclick="createNewSession()">Start New Session</button>
+        <h2 id="sessionCodeDisplay">Session Code: ------</h2>
+    </div>
 
-<button onclick="startSession()">Start Session</button>
-<button onclick="stopSession()">End Session</button>
-<p id="sessionCode">No active session.</p>
+    <div class="dashboard-container">
+        <h3>Live Shot Feed</h3>
+        <div id="liveDataFeed">
+            <p>Click the button above to start.</p>
+        </div>
+    </div>
 
-<div class="court">
-    <div id="zone1" class="zone">Zone 1</div>
-    <div id="zone2" class="zone">Zone 2</div>
-    <div id="zone3" class="zone">Zone 3</div>
-    <div id="zone4" class="zone">Zone 4</div>
-    <div id="zone5" class="zone">Zone 5</div>
-    <div id="zone6" class="zone">Zone 6</div>
-</div>
-
-<script type="module" src="/js/teacher.js"></script>
-
+    <script type="module" src="../js/teacher.js"></script>
 </body>
 </html>

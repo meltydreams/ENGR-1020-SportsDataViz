@@ -1,58 +1,114 @@
+/* --- GLOBAL STYLES --- */
 body {
-    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- STUDENT PAGE STYLES --- */
+.student-page {
+    background-color: #f4f4f9;
     text-align: center;
-    margin-top: 40px;
 }
 
-button {
-    padding: 15px 20px;
-    margin: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+.shot-input-court {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 20px auto;
+    /* Step out of 'css' folder, into 'img' folder */
+    background: #ffffff url("../img/kid-court.png") no-repeat center;
+    background-size: contain;
+    border: 5px solid #333;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* Make/Miss colors */
-button.make {
-    background-color: green;
-    color: white;
-}
-
-button.miss {
-    background-color: red;
-    color: white;
-}
-
-/* Court layout */
-.court {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Zone buttons */
-.court button {
-    background-color: lightgray;
-}
-
-/* Zone divs on teacher page */
 .zone {
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: lightgray;
-    border-radius: 8px;
-    font-weight: bold;
+    position: absolute;
+    cursor: pointer;
+    /* Use 'none' once you are happy with the positions below */
+    border: 2px dashed rgba(255, 0, 0, 0.4); 
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Session code display */
-#sessionCode {
-    font-size: 24px;
+.zone:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Precise Mapping for your Image */
+#zone1 { width: 140px; height: 180px; top: 185px; left: 230px; } 
+#zone2 { width: 180px; height: 180px; top: 20px;  left: 30px;  } 
+#zone3 { width: 180px; height: 180px; top: 20px;  left: 390px; } 
+#zone4 { width: 180px; height: 180px; top: 240px; left: 20px;  } 
+#zone5 { width: 180px; height: 160px; top: 410px; left: 210px; } 
+#zone6 { width: 180px; height: 180px; top: 240px; left: 400px; } 
+
+/* Shot Popup Tooltip */
+.input-tooltip {
+    position: absolute;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+}
+
+.hidden { display: none !important; }
+
+.btn-yes { background: #2ecc71; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 5px; }
+.btn-no { background: #e74c3c; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 5px; }
+
+/* --- TEACHER PAGE STYLES --- */
+.teacher-page {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+}
+
+.header-section {
+    background: #34495e;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+#startSessionBtn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.3rem;
     font-weight: bold;
-    letter-spacing: 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #1e8449;
+}
+
+#startSessionBtn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #1e8449;
+}
+
+#sessionCodeDisplay {
+    margin-top: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2.5rem;
+    color: #f1c40f;
+    letter-spacing: 8px;
+}
+
+.dashboard-container {
+    background: #ffffff;
+    color: #333;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 25px;
+    border-radius: 20px;
+    min-height: 400px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }

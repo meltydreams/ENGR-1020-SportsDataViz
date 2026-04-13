@@ -1,61 +1,46 @@
 //original author: Cihangir Piskin
 //reviewed & overhauled by Drew Tedesco
 
-// Add the .js extension so the browser can find the module
-import {createSession, terminateSession, listenForShots} from "./api.js";
+import { createSession, listenForShots } from './api.js';
 
-//variables to track
-let sessionCode = null;
-let unsubscribe = null;
+window.createNewSession = async function() {
+    const display = document.getElementById('sessionCodeDisplay');
+    const feed = document.getElementById('liveDataFeed');
+    
+    if (!display) return;
+    display.innerText = "Generating Code...";
 
-//generates a validated unique session code & immediately starts listening for shots
-async function startSession(){
-    sessionCode = await createSession();
-    document.getElementById("sessionCode").innerHTML = "Session code: " + sessionCode;
-    // Note: ensure updateHeatmap is defined before being passed
-    unsubscribe = listenForShots(sessionCode, updateHeatmap);
-}
-
-//stops the session after validating that a session with such code exists & nulls the code
-async function stopSession(){
-    if(!sessionCode){
-        alert("No such session");
-        return; // Added return to prevent trying to terminate a null session
-    }
-    if(unsubscribe) unsubscribe();
-    await terminateSession(sessionCode);
-    sessionCode = null;
-    document.getElementById("sessionCode").innerText = "No active session";
-}
-
-//loops through the shots taken in each zone and formulates an accuracy percentage for each zone
-function updateHeatmap(shots){
-    const stats = {};
-
-    shots.forEach(shot => {
-        if(!stats[shot.zone]){
-            stats[shot.zone] = {made: 0, total: 0};
+    try {
+        const newCode = await createSession();
+        display.innerText = `Session Code: ${newCode}`;
+        
+        if (feed) {
+            feed.innerHTML = `<p style="color: #27ae60;">Session Live! Waiting for shots...</p>`;
         }
-        stats[shot.zone].total++;
-        if(shot.made) stats[shot.zone].made++;
-    });
 
-    for (let zone in stats) {
-        const percent = (stats[zone].made / stats[zone].total) * 100;
-        const element = document.getElementById(zone);
-        if(element){
-            element.style.backgroundColor = getColor(percent);
-        }
+        // Start listening for live shots
+        listenForShots(newCode, (shots) => {
+            if (feed) {
+                feed.innerHTML = ""; // Clear waiting message
+                
+                // Sort by timestamp (newest first)
+                shots.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+
+                shots.forEach(shot => {
+                    const entry = document.createElement('div');
+                    entry.style.padding = "10px";
+                    entry.style.borderBottom = "1px solid #eee";
+                    
+                    const status = shot.made ? "✅ MADE" : "❌ MISS";
+                    const color = shot.made ? "#2ecc71" : "#e74c3c";
+                    
+                    entry.innerHTML = `<strong>Zone ${shot.zone}</strong>: <span style="color: ${color}">${status}</span>`;
+                    feed.appendChild(entry);
+                });
+            }
+        });
+    } catch (error) {
+        console.error("Error creating session:", error);
+        display.innerText = "Error Starting Session";
     }
-}
-
-//defines zone color based on accuracy
-function getColor(percent){
-    if(percent >= 75) return "green";
-    if(percent >= 50) return "yellow";
-    if(percent >= 25) return "orange";
-    return "red";
-}
-
-window.startSession = startSession;
-window.stopSession = stopSession;
+};

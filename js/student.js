@@ -1,45 +1,51 @@
 //original author: Cihangir Piskin
 //reviewed & overhauled by Drew Tedesco
 
-import {submitShot, sessionExists} from "./api";
+import { submitShot } from './api.js';
 
-//reads session code from URL
-const params = new URLSearchParams(window.location.search);
-const sessionCode = params.get("sessionCode");
+let activeSessionCode = "";
+let selectedZone = null;
 
-//variables to track during gameplay
-let curZone = null;
-let shotCount = 0;
-
-//runs at page load - checks if URL is active & attaches the functions so that they can be called
-async function init(){
-    const isValid = await sessionExists(sessionCode);
-    if(!isValid){
-        alert("Invalid session code");
-        return;
+// Grab code from URL
+window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    if (code) {
+        activeSessionCode = code;
+        document.getElementById('displaySessionCode').innerText = `Joined Session: ${code}`;
     }
+};
 
-    window.selectZone = selectZone;
-    window.recordShot = recordShot;
-}
+window.showInputTooltip = function(event, zoneNum) {
+    const tooltip = document.getElementById('inputTooltip');
+    const header = document.getElementById('tooltipHeader');
+    
+    selectedZone = `zone${zoneNum}`;
+    header.innerText = `Zone ${zoneNum}`;
 
-//updates curZone with the current zone.
-function selectZone(zone){
-    curZone = zone;
-    alert("Selected zone " + zone);
-}
+    const court = document.getElementById('shotInputContainer');
+    const rect = court.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
 
-//records a shot after checking if a zone is selected. writes the shot to firestore & increments the shot counter
-async function recordShot(result) {
-    if (!curZone) {
-        alert("No such zone");
-        return;
+    tooltip.style.left = `${x - 60}px`;
+    tooltip.style.top = `${y - 90}px`;
+    tooltip.classList.remove('hidden');
+};
+
+window.submitLoggedShot = async function(isMade) {
+    const tooltip = document.getElementById('inputTooltip');
+    if (!selectedZone || !activeSessionCode) return;
+
+    tooltip.classList.add('hidden');
+    const success = await submitShot(activeSessionCode, selectedZone, isMade);
+    if (!success) alert("Error submitting shot. Check teacher session.");
+};
+
+// Close tooltip if clicking away
+document.addEventListener('mousedown', (e) => {
+    const tooltip = document.getElementById('inputTooltip');
+    if (tooltip && !tooltip.contains(e.target) && !e.target.classList.contains('zone')) {
+        tooltip.classList.add('hidden');
     }
-    const made = (result === "make");
-    await submitShot(sessionCode, curZone, made);
-    shotCount++;
-    document.getElementById("shotNumber").innerHTML = "Shot number " + shotCount;
-}
-
-//initializes
-init();
+});
