@@ -16,7 +16,6 @@ body {
     width: 600px;
     height: 600px;
     margin: 20px auto;
-    /* Step out of 'css' folder, into 'img' folder */
     background: #ffffff url("../img/kid-court.png") no-repeat center;
     background-size: contain;
     border: 5px solid #333;
@@ -27,7 +26,6 @@ body {
 .zone {
     position: absolute;
     cursor: pointer;
-    /* Use 'none' once you are happy with the positions below */
     border: 2px dashed rgba(255, 0, 0, 0.4); 
     background-color: rgba(255, 255, 255, 0.05);
 }
@@ -36,7 +34,7 @@ body {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Precise Mapping for your Image */
+/* Precise Mapping */
 #zone1 { width: 140px; height: 180px; top: 185px; left: 230px; } 
 #zone2 { width: 180px; height: 180px; top: 20px;  left: 30px;  } 
 #zone3 { width: 180px; height: 180px; top: 20px;  left: 390px; } 
@@ -44,7 +42,6 @@ body {
 #zone5 { width: 180px; height: 160px; top: 410px; left: 210px; } 
 #zone6 { width: 180px; height: 180px; top: 240px; left: 400px; } 
 
-/* Shot Popup Tooltip */
 .input-tooltip {
     position: absolute;
     background: white;
@@ -63,43 +60,49 @@ body {
 .btn-yes { background: #2ecc71; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 5px; }
 .btn-no { background: #e74c3c; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 5px; }
 
-/* --- TEACHER PAGE STYLES --- */
+/* --- UPDATED TEACHER PAGE STYLES --- */
 .teacher-page {
-    background-color: #2c3e50;
-    color: white;
+    background-color: #f4f4f9; /* Matches student background */
+    color: #333;               /* Dark text for readability */
     text-align: center;
 }
 
 .header-section {
-    background: #34495e;
+    background: #ffffff;       /* Clean white header */
     padding: 30px;
     border-radius: 15px;
     margin-bottom: 30px;
+    border: 1px solid #ddd;    /* Subtle border instead of dark fill */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 #startSessionBtn {
-    background-color: #27ae60;
+    background-color: #2ecc71; /* Green button for high contrast */
     color: white;
     border: none;
     padding: 15px 40px;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 4px 0 #1e8449;
+    transition: background 0.2s;
+}
+
+#startSessionBtn:hover {
+    background-color: #333;
 }
 
 #startSessionBtn:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #1e8449;
+    transform: translateY(1px);
 }
 
 #sessionCodeDisplay {
     margin-top: 20px;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 2.5rem;
-    color: #f1c40f;
-    letter-spacing: 8px;
+    font-size: 2.2rem;
+    color: #333;               /* Removed yellow gold for black/dark grey */
+    letter-spacing: 6px;
+    font-weight: bold;
 }
 
 .dashboard-container {
@@ -110,5 +113,14 @@ body {
     padding: 25px;
     border-radius: 20px;
     min-height: 400px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    border: 1px solid #ddd;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Feed Entry Styling for White Background */
+.shot-log-entry {
+    background: #fdfdfd;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #eee;
 }
