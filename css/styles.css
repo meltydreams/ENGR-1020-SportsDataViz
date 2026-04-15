@@ -11,18 +11,6 @@ body {
     text-align: center;
 }
 
-.shot-input-court {
-    position: relative;
-    width: 600px;
-    height: 600px;
-    margin: 20px auto;
-    background: #ffffff url("../img/kid-court.png") no-repeat center;
-    background-size: contain;
-    border: 5px solid #333;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
 .zone {
     position: absolute;
     cursor: pointer;
@@ -34,13 +22,6 @@ body {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Precise Mapping */
-#zone1 { width: 140px; height: 180px; top: 185px; left: 230px; } 
-#zone2 { width: 180px; height: 180px; top: 20px;  left: 30px;  } 
-#zone3 { width: 180px; height: 180px; top: 20px;  left: 390px; } 
-#zone4 { width: 180px; height: 180px; top: 240px; left: 20px;  } 
-#zone5 { width: 180px; height: 160px; top: 410px; left: 210px; } 
-#zone6 { width: 180px; height: 180px; top: 240px; left: 400px; } 
 
 .input-tooltip {
     position: absolute;
@@ -117,10 +98,64 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-/* Feed Entry Styling for White Background */
 .shot-log-entry {
     background: #fdfdfd;
     margin: 10px 0;
     border-radius: 8px;
     border: 1px solid #eee;
 }
+
+.shot-input-court, .heatmap-court {
+    position: relative;
+    width: 600px;
+    height: 520px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    border: 5px solid #333;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.shot-input-court {
+    background-image: url("../img/court_rb.png");
+}
+
+.heatmap-court {
+    background-image: url("../img/court_bw.png");
+}
+
+.zone, .heat-zone {
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    position: absolute;
+    border: none;
+}
+
+.heat-zone { display: block; }
+
+#zone1, #hz1 { clip-path: polygon(34% 0%, 66% 0%, 66% 43%, 34% 43%); }
+#zone2, #hz2 { clip-path: polygon(6% 0%, 34% 0%, 34% 43%, 50% 43%, 50% 65.35%, 34% 63.15%, 20.59% 55.48%, 10.49% 43%, 6% 31.22%); }
+#zone3, #hz3 { clip-path: polygon(66% 0%, 94% 0%, 94% 31.22%, 88.22% 44.4%, 79.33% 55.22%, 66.6% 62.52%, 50% 65.86%, 50% 43%, 66% 43%); }
+#zone4, #hz4 { clip-path: polygon(0.42% 0%, 6.42% 0%, 5.9% 31.62%, 9.73% 40.06%, 13.71% 45.88%, 19.97% 53.28%, 29.57% 59.9%, 17.77% 100%, 0.42% 100%); }
+#zone5, #hz5 { clip-path: polygon(28.43% 59.31%, 34.3% 62.52%, 50% 64.93%, 64.3% 62.52%, 71.57% 59.31%, 82.79% 100%, 17.21% 100%); }
+#zone6, #hz6 { clip-path: polygon(100% 0%, 94% 0%, 94% 28%, 89.11% 42.31%, 83.84% 48.29%, 77.72% 56.21%, 84.04% 50.53%, 71.26% 59.43%, 82.37% 100%, 100% 100%); }
+
+.heat-label {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -50%);
+}
+
+#hz1 .heat-label { top: 25%; left: 50%; }
+#hz2 .heat-label { top: 25%; left: 20%; }
+#hz3 .heat-label { top: 25%; left: 80%; }
+#hz4 .heat-label { top: 60%; left: 12%; }
+#hz5 .heat-label { top: 75%; left: 50%; }
+#hz6 .heat-label { top: 60%; left: 88%; }

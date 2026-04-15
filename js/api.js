@@ -1,6 +1,4 @@
-//author: Drew Tedesco
-//resources: done in assistance with claude sonnet 4.6 (for firebase workings)
-
+//authors: Drew Tedesco, Ali Sheikh
 import { db } from "./firebase.js";
 import { doc, setDoc, getDoc, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 

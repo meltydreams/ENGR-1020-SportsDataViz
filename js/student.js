@@ -1,6 +1,4 @@
-//original author: Cihangir Piskin
-//reviewed & overhauled by Drew Tedesco
-
+//authors: Cihangir Piskin, Drew Tedesco, Ali Sheikh
 import { submitShot } from './api.js';
 
 let activeSessionCode = "";

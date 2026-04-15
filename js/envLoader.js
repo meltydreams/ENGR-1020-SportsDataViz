@@ -1,6 +1,6 @@
 export async function loadEnv() {
     try {
-        const response = await fetch('/.env'); // Fetches the .env file from the root
+        const response = await fetch('.env');
         if (!response.ok) throw new Error("Could not find .env file");
         
         const text = await response.text();
@@ -8,11 +8,11 @@ export async function loadEnv() {
 
         text.split('\n').forEach(line => {
             const trimmed = line.trim();
-            if (!trimmed || trimmed.startsWith('#')) return; // Skip comments/blanks
+            if (!trimmed || trimmed.startsWith('#')) return; //skipping blanks/comments
 
             const [key, ...valueParts] = trimmed.split('=');
             let value = valueParts.join('=').trim();
-            value = value.replace(/^["']|["']$/g, ''); // Remove quotes
+            value = value.replace(/^["']|["']$/g, ''); //removing quotes
             
             env[key.trim()] = value;
         });
