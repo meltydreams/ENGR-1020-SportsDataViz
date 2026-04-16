@@ -40,10 +40,11 @@ async function terminateSession(code) {
     await setDoc(doc(db, "sessions", code), { active: false, closedAt: serverTimestamp() }, { merge: true });
 }
 
-async function submitShot(sessionCode, zone, made) {
+async function submitShot(sessionCode, zone, made, studentName) {
     await addDoc(collection(db, "sessions", sessionCode, "shots"), {
         zone,
         made,
+        studentName,
         timestamp: serverTimestamp()
     });
 }

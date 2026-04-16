@@ -3,23 +3,29 @@ import { submitShot } from './api.js';
 
 let activeSessionCode = "";
 let selectedZone = null;
+let currentStudentName = "Anonymous"; // NEW: Store the student's name
 
-// Grab session code from URL (e.g., ?session=QKUYNH)
+// Grab session code and name from URL (e.g., ?session=QKUYNH&name=John)
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     
-    // Updated to match your URL parameter 'session'
     const sessionParam = urlParams.get('session'); 
+    const nameParam = urlParams.get('name'); // NEW: Get name from URL
     
+    if (nameParam) {
+        currentStudentName = decodeURIComponent(nameParam);
+    }
+    
+    const display = document.getElementById('displaySessionCode');
+
     if (sessionParam) {
         activeSessionCode = sessionParam.toUpperCase();
-        const display = document.getElementById('displaySessionCode');
-        display.innerText = `Joined Session: ${activeSessionCode}`;
-        display.style.color = "#333"; // Ensure text is dark/readable
+        // NEW: Show both Player Name and Session Code
+        display.innerText = `Player: ${currentStudentName} | Session: ${activeSessionCode}`;
+        display.style.color = "#333"; 
     } else {
-        const display = document.getElementById('displaySessionCode');
         display.innerText = "No Active Session Joined";
-        display.style.color = "#e74c3c"; // Red for error/warning
+        display.style.color = "#e74c3c"; 
     }
 };
 
@@ -55,9 +61,9 @@ window.submitLoggedShot = async function(isMade) {
     tooltip.classList.add('hidden');
     
     try {
-        // Send the data to Firebase via api.js
-        await submitShot(activeSessionCode, selectedZone, isMade);
-        console.log(`✅ Success: Shot logged in ${selectedZone} (Made: ${isMade})`);
+        // NEW: Pass currentStudentName to the API so it logs who took the shot
+        await submitShot(activeSessionCode, selectedZone, isMade, currentStudentName);
+        console.log(`✅ Success: Shot logged in ${selectedZone} by ${currentStudentName} (Made: ${isMade})`);
     } catch (error) {
         console.error("❌ Submission Error:", error);
         alert("Failed to log shot. Please check your connection.");

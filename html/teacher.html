@@ -15,13 +15,21 @@
 
     <div class="dashboard-container">
         <h3>Live Shot Heatmap</h3>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="studentFilter"><strong>View Data For: </strong></label>
+            <select id="studentFilter" onchange="renderHeatmap()" style="padding: 5px; font-size: 1rem; border-radius: 5px; min-width: 200px;">
+                <option value="all">Entire Class</option>
+            </select>
+        </div>
+
         <div id="heatmapContainer" class="heatmap-court">
-            <div id = "hz1" class="heat-zone"></div>
-            <div id = "hz2" class="heat-zone"></div>
-            <div id = "hz3" class="heat-zone"></div>
-            <div id = "hz4" class="heat-zone"></div>
-            <div id = "hz5" class="heat-zone"></div>
-            <div id = "hz6" class="heat-zone"></div>
+            <div id="hz1" class="heat-zone"></div>
+            <div id="hz2" class="heat-zone"></div>
+            <div id="hz3" class="heat-zone"></div>
+            <div id="hz4" class="heat-zone"></div>
+            <div id="hz5" class="heat-zone"></div>
+            <div id="hz6" class="heat-zone"></div>
         </div>
     </div>
 
