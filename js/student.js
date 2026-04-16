@@ -29,6 +29,29 @@ window.onload = () => {
     }
 };
 
+/**
+ * 2. COURT INITIALIZATION LOGIC
+ * This runs on student.html (the court page)
+ */
+window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionParam = urlParams.get('session'); 
+    
+    const display = document.getElementById('displaySessionCode');
+    
+    if (sessionParam && display) {
+        activeSessionCode = sessionParam.toUpperCase();
+        display.innerText = `Joined Session: ${activeSessionCode}`;
+        display.style.color = "#333";
+    } else if (display) {
+        display.innerText = "No Active Session Joined";
+        display.style.color = "#e74c3c";
+    }
+};
+
+/**
+ * 3. SHOT LOGGING LOGIC
+ */
 window.showInputTooltip = function(event, zoneNum) {
     const tooltip = document.getElementById('inputTooltip');
     const header = document.getElementById('tooltipHeader');
@@ -39,7 +62,6 @@ window.showInputTooltip = function(event, zoneNum) {
     const court = document.getElementById('shotInputContainer');
     const rect = court.getBoundingClientRect();
     
-    // Calculate position relative to the court container
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
