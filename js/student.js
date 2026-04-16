@@ -4,25 +4,48 @@ import { submitShot } from './api.js';
 let activeSessionCode = "";
 let selectedZone = null;
 
-// Grab session code from URL (e.g., ?session=QKUYNH)
-window.onload = () => {
-    const urlParams = new URLSearchParams(window.location.search);
+/**
+ * 1. SESSION JOINING LOGIC
+ * This runs on index.html (the join page)
+ */
+window.joinSession = function() {
+    const codeInput = document.getElementById('sessionCodeInput');
+    if (!codeInput) return;
+
+    const code = codeInput.value.trim().toUpperCase();
     
-    // Updated to match your URL parameter 'session'
-    const sessionParam = urlParams.get('session'); 
-    
-    if (sessionParam) {
-        activeSessionCode = sessionParam.toUpperCase();
-        const display = document.getElementById('displaySessionCode');
-        display.innerText = `Joined Session: ${activeSessionCode}`;
-        display.style.color = "#333"; // Ensure text is dark/readable
+    if (code.length === 6) {
+        console.log("Redirecting to session:", code);
+        // FIXED: Added 'html/' to the path so it finds the file in the correct folder
+        window.location.href = `html/student.html?session=${code}`;
     } else {
-        const display = document.getElementById('displaySessionCode');
-        display.innerText = "No Active Session Joined";
-        display.style.color = "#e74c3c"; // Red for error/warning
+        alert("Please enter a valid 6-letter session code.");
     }
 };
 
+/**
+ * 2. COURT INITIALIZATION LOGIC
+ * This runs on student.html (the court page)
+ */
+window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionParam = urlParams.get('session'); 
+    
+    const display = document.getElementById('displaySessionCode');
+    
+    if (sessionParam && display) {
+        activeSessionCode = sessionParam.toUpperCase();
+        display.innerText = `Joined Session: ${activeSessionCode}`;
+        display.style.color = "#333";
+    } else if (display) {
+        display.innerText = "No Active Session Joined";
+        display.style.color = "#e74c3c";
+    }
+};
+
+/**
+ * 3. SHOT LOGGING LOGIC
+ */
 window.showInputTooltip = function(event, zoneNum) {
     const tooltip = document.getElementById('inputTooltip');
     const header = document.getElementById('tooltipHeader');
@@ -33,7 +56,6 @@ window.showInputTooltip = function(event, zoneNum) {
     const court = document.getElementById('shotInputContainer');
     const rect = court.getBoundingClientRect();
     
-    // Calculate position relative to the court container
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
@@ -55,7 +77,6 @@ window.submitLoggedShot = async function(isMade) {
     tooltip.classList.add('hidden');
     
     try {
-        // Send the data to Firebase via api.js
         await submitShot(activeSessionCode, selectedZone, isMade);
         console.log(`✅ Success: Shot logged in ${selectedZone} (Made: ${isMade})`);
     } catch (error) {
