@@ -30,26 +30,6 @@ window.onload = () => {
 };
 
 /**
- * 2. COURT INITIALIZATION LOGIC
- * This runs on student.html (the court page)
- */
-window.onload = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const sessionParam = urlParams.get('session'); 
-    
-    const display = document.getElementById('displaySessionCode');
-    
-    if (sessionParam && display) {
-        activeSessionCode = sessionParam.toUpperCase();
-        display.innerText = `Joined Session: ${activeSessionCode}`;
-        display.style.color = "#333";
-    } else if (display) {
-        display.innerText = "No Active Session Joined";
-        display.style.color = "#e74c3c";
-    }
-};
-
-/**
  * 3. SHOT LOGGING LOGIC
  */
 window.showInputTooltip = function(event, zoneNum) {

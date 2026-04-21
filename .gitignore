@@ -1,5 +1,6 @@
 # Credentials
 .env
+.gitignore
 
 # Dependencies
 node_modules/
@@ -7,3 +8,5 @@ node_modules/
 # OS files
 .DS_Store
 Thumbs.db
+
+js/firebase.js

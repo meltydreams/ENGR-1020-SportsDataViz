@@ -23,14 +23,14 @@ window.createNewSession = async function() {
     }
 };
 
-// Populates the dropdown with unique student names
+// populates the dropdown with unique student names
 function updateStudentDropdown() {
     const select = document.getElementById('studentFilter');
     if (!select) return;
     
     const currentSelection = select.value;
     
-    // Get unique student names from the database (filters out empty/undefined names)
+    // filter empty/undef names
     const names = [...new Set(globalShots.map(s => s.studentName).filter(Boolean))];
     
     select.innerHTML = '<option value="all">Entire Class</option>';
@@ -61,7 +61,7 @@ window.renderHeatmap = function() {
         zone6: { made: 0, total: 0 }
     };
 
-    // Tally up the filtered shots
+    //tally filtered shots
     filteredShots.forEach(shot => {
         const zoneKey = shot.zone;
         if (stats[zoneKey]) {
