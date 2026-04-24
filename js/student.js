@@ -39,14 +39,12 @@ window.showInputTooltip = function(event, zoneNum) {
     selectedZone = `zone${zoneNum}`;
     header.innerText = `Zone ${zoneNum}`;
 
-    const court = document.getElementById('shotInputContainer');
-    const rect = court.getBoundingClientRect();
-    
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    // Removed the mouse tracking math!
+    // Instead, lock the popup perfectly to the center of the court container
+    tooltip.style.left = '50%';
+    tooltip.style.top = '50%';
+    tooltip.style.transform = 'translate(-50%, -50%)'; 
 
-    tooltip.style.left = `${x - 60}px`;
-    tooltip.style.top = `${y - 110}px`; 
     tooltip.classList.remove('hidden');
 };
 
