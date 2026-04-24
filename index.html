@@ -6,37 +6,49 @@
     <title>Join Session</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="student-page" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background-color: #f4f4f9;">
+<body class="student-page" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background-color: #f8f9fc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 
-    <div class="join-container" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 400px; border: 1px solid #ddd;">
+    <div class="join-container" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); text-align: center; width: 100%; max-width: 400px; border: 1px solid #e2e8f0;">
         
-        <h1 style="font-size: 2.5rem; margin-bottom: 30px; color: #1a1a1a;">Join Session</h1>
+        <h1 style="font-size: 2.2rem; margin-bottom: 30px; color: #0f172a; font-weight: 800;">C4K Basketball</h1>
         
         <div style="margin-bottom: 20px;">
-            <label for="name" style="display: block; font-weight: bold; margin-bottom: 10px; color: #555; font-size: 1.1rem;">
+            <label for="name" style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569; font-size: 1.05rem;">
                 Your Name
             </label>
             <input type="text" id="name" placeholder="Enter your name" 
-                   style="width: 90%; padding: 15px; font-size: 1.3rem; border: 2px solid #eee; border-radius: 10px; text-align: center;">
+                   style="width: 85%; padding: 14px; font-size: 1.2rem; border: 2px solid #e2e8f0; border-radius: 10px; text-align: center; outline: none; transition: border-color 0.2s;">
         </div>
 
         <div style="margin-bottom: 30px;">
-            <label for="code" style="display: block; font-weight: bold; margin-bottom: 10px; color: #555; font-size: 1.1rem;">
+            <label for="code" style="display: block; font-weight: 600; margin-bottom: 8px; color: #475569; font-size: 1.05rem;">
                 Session Code
             </label>
             <input type="text" id="code" placeholder="Enter 6-letter code" 
-                   style="width: 90%; padding: 15px; font-size: 1.3rem; border: 2px solid #eee; border-radius: 10px; text-align: center; text-transform: uppercase; letter-spacing: 2px;">
+                   style="width: 85%; padding: 14px; font-size: 1.2rem; border: 2px solid #e2e8f0; border-radius: 10px; text-align: center; text-transform: uppercase; letter-spacing: 2px; outline: none; transition: border-color 0.2s;">
         </div>
 
         <button id="joinBtn" onclick="joinSession()" 
-                style="width: 100%; padding: 18px; font-size: 1.2rem; font-weight: bold; background-color: #000; color: #fff; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.1s, background-color 0.2s;">
+                style="width: 95%; padding: 16px; font-size: 1.15rem; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">
             JOIN SESSION
         </button>
+
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #f1f5f9;">
+            <a href="html/teacher.html" style="color: #94a3b8; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.2s;">
+                Teacher Portal &rarr;
+            </a>
+        </div>
         
     </div>
 
     <script type="module">
         import { sessionExists } from "./js/api.js";
+
+        // Add a nice highlight effect when typing
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => input.style.borderColor = '#3b82f6');
+            input.addEventListener('blur', () => input.style.borderColor = '#e2e8f0');
+        });
 
         async function joinSession() {
             const nameInput = document.getElementById("name");
@@ -45,11 +57,13 @@
             const studentName = nameInput.value.trim();
             const code = codeInput.value.trim().toUpperCase();
 
+            // 1. Check if name is empty
             if (!studentName) {
                 alert("Please enter your name.");
                 return;
             }
 
+            // 2. Validate format (Exactly 6 Capital Letters)
             const codeRegex = /^[A-Z]{6}$/;
             if (!codeRegex.test(code)) {
                 alert("Invalid format! The code must be exactly 6 capital letters.");
@@ -57,14 +71,16 @@
             }
 
             try {
+                // 3. Check Firebase for the session
                 const valid = await sessionExists(code);
                 
                 if (valid) {
-                    console.log("Session found, redirecting...");
+                    // Pass BOTH the session code and the student name in the URL
                     window.location.href = `html/student.html?session=${code}&name=${encodeURIComponent(studentName)}`;
                 } else {
+                    // 4. Handle non-existent session
                     alert("Session '" + code + "' not found. Ask your teacher for the current code.");
-                    codeInput.value = "";
+                    codeInput.value = ""; // Clear the input for a retry
                 }
             } catch (error) {
                 console.error("Join Error:", error);
