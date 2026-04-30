@@ -15,7 +15,7 @@ An educational helper app created to be used in tandem with the basketball game 
 ## Screenshots
 
 ![Student-side UI](https://i.imgur.com/YlYJ1zS.png)
-![Teacher-side UI](https://i.imgur.com/t3Od3tt.png)
+![Teacher-side UI](https://i.imgur.com/qX69Jw4.png)
 
 
 ## Site URL
